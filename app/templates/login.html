@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<center>
+  <h3>Login</h3>
+  <form action="" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+    <p>{{ field.label }}: <br> {{ field }}</p>
+    {% endfor %}
+    <button type="submit">Login</button>
+  </form>
+
+  <p>Don't have an account? <a href="/signup">Signup here</a></p>
+</center>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<center>
+   <h1>hello brother !</h1>
+   {% for obj in objs %}
+   {{obj.host}}
+   {% endfor %}
+</center>
+{% endblock %}
