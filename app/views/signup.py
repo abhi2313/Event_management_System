@@ -1,16 +1,18 @@
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate,login as loginuser
-from django.contrib import messages
 # from django.contrib.auth.forms import UserCreationForm
 from django.views import View
 from app.forms import UserRegistrationForm
 
+from django.contrib import messages
 
 class Signup(View):
+    message=None
     def get(self, request):
         form = UserRegistrationForm()
-        context = {'form': form}
+        message=None
+        context = {'form': form,'message':message}
         return render(request, 'signup.html', context)
 
     def post(self, request):
@@ -22,9 +24,12 @@ class Signup(View):
                 loginuser(request,user)
                 return redirect('homepage')
 
-            # messages.success(request, f'Your account has been created. You can log in now!')
-            # return redirect('login')
+           
         else:
+            expalnation=form.errors.as_data()
+            for key in expalnation:
+                for value in expalnation[key]:
+                    message=value
             form = UserRegistrationForm()
-            context = {'form': form}
+            context = {'form': form,'message':message}
             return render(request, 'signup.html', context)

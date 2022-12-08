@@ -3,19 +3,29 @@
 {% block content %}
 
 <center>
-  <div class="border border-secondary" style="width: 400px;margin-top:70px;">
-  <h3 style="margin-top: 30px;margin-bottom:30px;"><b>Login</b></h3>
-  <form action="" method="POST">
-    {% csrf_token %}
-    {% for field in form %}
-    <p>{{ field.label }}: <br> {{ field }}</p>
-    {% endfor %}
-    <button class="btn btn-primary" type="submit">Login</button>
-  </form>
-  <br>
-  <hr>
+  <div class="border border-secondary" style="width: 400px;margin-top:70px;height: 500px;">
+    <h3 style="margin-top: 30px;margin-bottom:30px;"><b>Login</b></h3>
+    <form action="" method="POST">
+      {% csrf_token %}
+      {% for field in form %}
+      <div>
+        <p>{{ field.label }}: <br> {{ field }}</p>
 
-  <p>Don't have an account? <a class="btn btn-primary" href="/signup">Signup here</a></p>
+
+      </div>
+      {% endfor %}
+
+      <button class="btn btn-primary" type="submit">Login</button>
+    </form>
+    <hr>
+    {% if message %}
+    {% for ele in message %}
+    <p>{{ele}}</p>
+    {%endfor %}
+    {% endif %}
+    <hr>
+
+    <p>Don't have an account? <a class="btn btn-primary" href="/signup">Signup here</a></p>
   </div>
 </center>
 

@@ -7,16 +7,20 @@ from app.forms import eventForm
 from app.models import invited, events
 from django.db.models import Q
 
+from django.core.paginator import Paginator
+
 
 @login_required(login_url='login')
 def add_an_event(request):
     user = request.user
     form = eventForm(request.POST)
+
     # chek=request.POST.get('invited_user')
     # print("here !")
     # print(chek)
 
     if form.is_valid():
+
         event = form.save()
         for t in event.invited_user.all():
             invtd = invited(user=t, event=event)
@@ -30,12 +34,20 @@ def add_an_event(request):
 
 @login_required(login_url='login')
 def you_invited(request):
+    message = None
     user = request.user
     obj = invited.objects.filter(user=user)
 
+    if len(obj) == 0:
+        message = "Nothing to Show "
+
     # print(obj)
+    p = Paginator(obj, 2)
+    page = request.GET.get('page')
+    obj = p.get_page(page)
     context = {
-        'objs': obj
+        'objs': obj,
+        'message': message
     }
     return render(request, 'see_events_you_invited.html', context)
 
@@ -46,21 +58,25 @@ def events_hosted_by_you(request):
     date_filter = request.GET.get('date_filter')
 
     user = request.user
-    message=None
+    message = None
 
     if sort_events is not None:
         obj = events.objects.filter(host=user).order_by('date', 'time')
-    elif date_filter is not None:
-        date=request.POST.get('date')
-        obj=events.objects.filter(date=date)
     else:
         obj = events.objects.filter(host=user)
-    if len(obj)==0:
-        message="Nothing to Show."
+    if len(obj) == 0:
+        message = "Nothing to Show."
+
+    # pagination
+    p = Paginator(obj, 2)
+    page = request.GET.get('page')
+    obj = p.get_page(page)
 
     context = {
         'objs': obj,
-        'message':message
+        'message': message,
+        'sort_events': sort_events,
+        'date_filter': date_filter
     }
 
     return render(request, 'see_events_hosted_by_you.html', context)
@@ -72,14 +88,15 @@ def search_events(request):
     if request.method == "POST":
         searched = request.POST.get('searched')
 
-        event_hosted = events.objects.filter(Q(event_name__icontains=searched))
+        obj = events.objects.filter(Q(event_name__icontains=searched))
         message = None
-        if len(event_hosted) == 0:
+        if len(obj) == 0:
+
             message = "Nothing to Show ."
-        # print(event_hosted)
+
         context = {
             'searched': searched,
-            'event_hosted': event_hosted,
+            'objs': obj,
             'message': message
 
         }
@@ -111,6 +128,19 @@ def update_event(request, id):
     else:
         return render(request, 'update_event.html', context={'event': event, 'form': form})
 
-def get_this_event(request,id):
-    event=events.objects.get(pk=id)
-    return render(request,'see_particulur_event.html',{'event':event})
+
+def get_this_event(request, id):
+    event = events.objects.get(pk=id)
+    return render(request, 'see_particulur_event.html', {'event': event})
+
+
+def date_filter(request):
+    if request.method == "POST":
+        obj = events.objects.filter(date=request.POST.get('date'))
+        message = None
+        if len(obj) == 0:
+            message = "Nothing to show."
+
+        return render(request, 'filter_by_date.html', context={'objs': obj, 'message': message})
+    else:
+        pass

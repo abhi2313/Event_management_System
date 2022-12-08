@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 {% if message %}
-<h1><b>{{message}}</b></h1>
+<center>
+    <h1><b>{{message}}</b></h1>
+</center>
 {% else %}
-{% if searched %}
 
 
 <table class="table table-dark">
@@ -40,8 +41,5 @@
 
 
 
-{% else %}
-<h1><b>Nothing to Show .</b></h1>
-{% endif %}
 {% endif %}
 {% endblock %}

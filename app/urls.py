@@ -1,5 +1,5 @@
 
-from app.views import index,Signup,Login,logout,events
+from app.views import index,Signup,Login,logout,events,change_pswd
 
 from django.contrib import admin
 from django.urls import path
@@ -19,8 +19,9 @@ urlpatterns = [
     path('remove_event/<int:id>',events.remove_event,name='remove_event'),
     path('get_this_event/<int:id>',events.get_this_event,name='get_this_event'),
     path('update_event/<int:id>',events.update_event,name='update_event'),
-  
-    path('search_events',events.search_events,name='search_events')
+    path('change_password/',change_pswd.change_password,name='change_password'),
+    path('search_events',events.search_events,name='search_events'),
+    path('date_filter',events.date_filter,name='date_filter')
    
 
    

@@ -10,27 +10,23 @@ from django.contrib.auth.models import User
 from django.forms import TextInput
 
 
-
 class UserRegistrationForm(UserCreationForm):
-    first_name = forms.CharField(max_length=101)
-    last_name = forms.CharField(max_length=101)
+ 
     email = forms.EmailField()
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name',
-                  'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2']
 
 
 class eventForm(forms.ModelForm):
-   
+
     class Meta:
         model = events
-        fields = ['host','event_name', 'invited_user', 'date', 'time']
+        fields = ['host', 'event_name', 'invited_user', 'date', 'time']
         widgets = {
             'date': DatePickerInput(),
             'time': TimePickerInput(),
-            'invited_user':forms.SelectMultiple()
+            'invited_user': forms.SelectMultiple()
 
         }
-        

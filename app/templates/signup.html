@@ -2,22 +2,26 @@
 
 {% block content %}
 <center>
-    <div class="border border-secondary" style="width: 450px;height:600px;margin-top:40px;">
-    <h3 style="margin-top: 25px;"><b>Register Here </b></h3>
-    <hr>
+    <div class="border border-secondary" style="width: 450px;height:500px;margin-top:80px;">
 
-    <form action="" method="POST">
-        {% csrf_token %}
+        <h3 style="margin-top: 25px;"><b>Register Here </b></h3>
+        <hr>
 
-        {% for field in form %}
-        <div>
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            {% for field in form %}
             <p>{{ field.label }}: <br> {{ field }}</p>
 
-            
-        </div>
-        {% endfor %}
-        <button class="btn btn-primary" type="submit">Register</button>
-    </form>
+            {% endfor %}
+            <button class="btn btn-primary" type="submit">Register</button>
+        </form>
+        <hr>
+        {% if message %}
+        {% for ele in message %}
+        {{ele}}
+        {%endfor %}
+        {% endif %}
     </div>
 </center>
 {% endblock %}
