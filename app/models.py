@@ -1,24 +1,27 @@
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
+# import psycopg2
+
 
 class events(models.Model):
 
-    status_choices = {
-        ('C', 'Completed'),
-        ('P', 'Pending'),
-    }
+    host = models.ForeignKey(
+        User, on_delete=models.CASCADE, default='request.user', related_name='users')
+    event_name = models.CharField(max_length=100)
+    date = models.DateField(null=True)
+    time = models.TimeField(null=True)
+    invited_user = models.ManyToManyField(User, blank=True)
 
-    host=models.ForeignKey(User,on_delete=models.CASCADE,related_name='users')
-    event_name=models.CharField(max_length=100)
-    datetime=models.DateTimeField()
-    invited_user=models.ForeignKey(User,models.CASCADE)
-    status=models.CharField(max_length=2,choices=status_choices)
+    def __str__(self):
+        return self.event_name
 
-class invites(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
-    event=models.ForeignKey(events,on_delete=models.CASCADE)
+
+
+
 
 class invited(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='user')
-    event=models.ForeignKey(events,on_delete=models.CASCADE,related_name='event')
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='user')
+    event = models.ForeignKey(
+        events, on_delete=models.CASCADE, related_name='event')

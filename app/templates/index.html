@@ -1,9 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 <center>
-<a href="/add">Create an event </a>
-<hr>
-<a href="/see_you_invited">See event ypu invited in . </a>
+    <div style="width: 400px;margin-top: 200px;">
+        <a class="btn btn-primary btn-lg btn-block" href="/add"><b>Create an event </b></a>
 
+        <hr>
+
+        <a class="btn btn-primary btn-lg btn-block" href="/see_you_invited"><b>See events you invited in </b></a>
+
+        <hr>
+
+        <a class="btn btn-primary btn-lg btn-block" href="/see_you_hosted"><b>See events hosted by you </b></a>
+        <hr>
+        <a class="btn btn-primary btn-lg btn-block" href="/see_you_invited"><b>change password </b> </a>
+    </div>
 </center>
+
+
+
 {% endblock %}

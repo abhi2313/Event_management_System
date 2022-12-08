@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<center>
+    <div class="card border border-secondary" style="width: 38rem;margin-top: 70px;">
+        <div class="card-header">
+            <b>Event_name : {{event.event_name}}</b>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item "><b>Host : {{event.host}}</b></li>
+            <li class="list-group-item"><b>Event-date : {{event.date}}</b></li>
+            <li class="list-group-item"><b>Event-Time : {{event.time}}</b></li>
+            <li class="list-group-item"><b>Invited-Users : -- </b></li>
+            <li class="list-group-item"></li>
+
+
+            <ul class="list-group list-group-flush">
+                
+                {% for user in event.invited_user.all %}
+                <li class="list-group-item"><b>{{user}}</b></li>
+                {% endfor %}
+            </ul>
+        </ul>
+    </div>
+</center>
+{% endblock %}

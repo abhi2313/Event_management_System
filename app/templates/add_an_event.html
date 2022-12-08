@@ -3,19 +3,23 @@
 
 
 <center>
-    <form action="" method="POST">
-        {% csrf_token %}
+    <div class="border border-secondary" style="width: 450px;height:600px;margin-top:40px;">
+        <h3 style="margin-top: 25px;"><b>Register Here </b></h3>
+        <hr>
 
-        {% for field in form %}
-        <div>
-            <p>{{ field.label }}: <br> {{ field }}</p>
+        <form action="" method="POST">
+            {% csrf_token %}
 
-            <!-- {% for error in field.errors %}
-            <small style="color: red">{{ error }}</small>
-            {% endfor %} -->
-        </div>
-        {% endfor %}
-        <button type="submit">Register</button>
-    </form>
+            {% for field in form %}
+            <div>
+                <p>{{ field.label }}: <br> {{ field }} </p>
+
+
+                
+            </div>
+            {% endfor %}
+            <button type="submit">Invite</button>
+        </form>
+    </div>
 </center>
 {% endblock %}

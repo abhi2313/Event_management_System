@@ -3,16 +3,20 @@
 {% block content %}
 
 <center>
-  <h3>Login</h3>
+  <div class="border border-secondary" style="width: 400px;margin-top:70px;">
+  <h3 style="margin-top: 30px;margin-bottom:30px;"><b>Login</b></h3>
   <form action="" method="POST">
     {% csrf_token %}
     {% for field in form %}
     <p>{{ field.label }}: <br> {{ field }}</p>
     {% endfor %}
-    <button type="submit">Login</button>
+    <button class="btn btn-primary" type="submit">Login</button>
   </form>
+  <br>
+  <hr>
 
-  <p>Don't have an account? <a href="/signup">Signup here</a></p>
+  <p>Don't have an account? <a class="btn btn-primary" href="/signup">Signup here</a></p>
+  </div>
 </center>
 
 {% endblock %}
