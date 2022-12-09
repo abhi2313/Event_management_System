@@ -108,14 +108,29 @@ def search_events(request):
 
 @login_required(login_url='login')
 def remove_event(request, id):
-    events.objects.get(pk=id).delete()
-    return redirect('you_hosted')
+    try:
+        obj=events.objects.get(pk=id)
+    except:
+        return HttpResponse("Event Object not exist .")
+    if obj.host!=request.user:
+        return HttpResponse("You are not authorizes to delete this event .")
+    else:
+        obj.delete()
+        return redirect('you_hosted')
 
 
 @login_required(login_url='login')
 def update_event(request, id):
-    event = events.objects.get(pk=id)
+    try:
+        event = events.objects.get(pk=id)
+    except:
+        return HttpResponse("Event object Not Exist .")
+
+    if request.user!=event.host:
+        return HttpResponse("You are not authorized to update this event .")
+    
     form = eventForm(request.POST or None, instance=event)
+    
 
     if form.is_valid():
         eventtt = form.save()
