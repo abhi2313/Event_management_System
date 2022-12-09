@@ -137,7 +137,6 @@ def get_this_event(request, id):
         return render(request, 'see_particulur_event.html', {'event': event})
     except:
         return HttpResponse("Event Object not exist .")
-        
 
 
 @login_required(login_url='login')
