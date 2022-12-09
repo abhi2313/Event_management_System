@@ -15,10 +15,6 @@ def add_an_event(request):
     user = request.user
     form = eventForm(request.POST)
 
-    # chek=request.POST.get('invited_user')
-    # print("here !")
-    # print(chek)
-
     if form.is_valid():
 
         event = form.save()
@@ -109,10 +105,10 @@ def search_events(request):
 @login_required(login_url='login')
 def remove_event(request, id):
     try:
-        obj=events.objects.get(pk=id)
+        obj = events.objects.get(pk=id)
     except:
         return HttpResponse("Event Object not exist .")
-    if obj.host!=request.user:
+    if obj.host != request.user:
         return HttpResponse("You are not authorizes to delete this event .")
     else:
         obj.delete()
@@ -126,11 +122,10 @@ def update_event(request, id):
     except:
         return HttpResponse("Event object Not Exist .")
 
-    if request.user!=event.host:
+    if request.user != event.host:
         return HttpResponse("You are not authorized to update this event .")
-    
+
     form = eventForm(request.POST or None, instance=event)
-    
 
     if form.is_valid():
         eventtt = form.save()
