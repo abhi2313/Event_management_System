@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block title %}
+Add_an_event
+{% endblock %}
 {% block content %}
 
 
@@ -15,11 +18,12 @@
                 <p>{{ field.label }}: <br> {{ field }} </p>
 
 
-                
+
             </div>
             {% endfor %}
             <button type="submit">Invite</button>
         </form>
+
     </div>
 </center>
 {% endblock %}

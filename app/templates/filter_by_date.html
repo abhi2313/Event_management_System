@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
+{% block title %}
+Events_filter_by_Date
+{% endblock %}
 {% block content %}
+<center style="margin-top: 40px;">
+    <form action="/date_filter" method="post">
+        {% csrf_token %}
+        <input required type="date" name="date" id="">
+        <button type="submit">Filter</button>
+    </form>
+</center style="margin-top:40px;">
 {% if message %}
-<center>
+<center >
     <h1><b>{{message}}</b></h1>
 </center>
 {% else %}
 
-
+<center style="margin-top: 40px;">
 <table class="table table-dark">
     <thead>
         <tr>
@@ -36,7 +46,7 @@
 
     </tbody>
 </table>
-
+</center>
 
 
 

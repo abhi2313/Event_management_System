@@ -8,6 +8,7 @@ from django.views.generic import CreateView
 from .widget import DatePickerInput, TimePickerInput, DateTimePickerInput
 from django.contrib.auth.models import User
 from django.forms import TextInput
+from django.utils import timezone
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -30,3 +31,4 @@ class eventForm(forms.ModelForm):
             'invited_user': forms.SelectMultiple()
 
         }
+       

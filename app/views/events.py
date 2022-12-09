@@ -143,4 +143,4 @@ def date_filter(request):
 
         return render(request, 'filter_by_date.html', context={'objs': obj, 'message': message})
     else:
-        pass
+        return HttpResponse("get method is not allowed")

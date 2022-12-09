@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-
+{% block title %}
+Signup
+{% endblock %}
 {% block content %}
 <center>
     <div class="border border-secondary" style="width: 450px;height:500px;margin-top:80px;">
@@ -14,7 +16,7 @@
             <p>{{ field.label }}: <br> {{ field }}</p>
 
             {% endfor %}
-            <button class="btn btn-primary" type="submit">Register</button>
+            <button name="submit" class="btn btn-primary" type="submit" >Register</button>
         </form>
         <hr>
         {% if message %}
