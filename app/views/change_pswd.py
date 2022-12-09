@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import PasswordChangeForm
 from django.forms import ValidationError
-
+from django.contrib.auth.decorators import login_required
+@login_required(login_url='login')
 def change_password(request):
     message=None
     if request.method == 'GET':

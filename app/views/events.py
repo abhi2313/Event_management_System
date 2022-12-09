@@ -112,6 +112,7 @@ def remove_event(request, id):
     return redirect('you_hosted')
 
 
+@login_required(login_url='login')
 def update_event(request, id):
     event = events.objects.get(pk=id)
     form = eventForm(request.POST or None, instance=event)
@@ -129,11 +130,13 @@ def update_event(request, id):
         return render(request, 'update_event.html', context={'event': event, 'form': form})
 
 
+@login_required(login_url='login')
 def get_this_event(request, id):
     event = events.objects.get(pk=id)
     return render(request, 'see_particulur_event.html', {'event': event})
 
 
+@login_required(login_url='login')
 def date_filter(request):
     if request.method == "POST":
         obj = events.objects.filter(date=request.POST.get('date'))
