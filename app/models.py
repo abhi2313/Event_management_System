@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 
-# Create your models here.
-# import psycopg2
 def validate_date(date):
          if date < timezone.now().date():
             raise ValidationError("Date cannot be in the past")
