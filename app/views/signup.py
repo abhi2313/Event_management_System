@@ -11,6 +11,8 @@ from django.contrib import messages
 
 class Signup(View):
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('homepage')
         form = UserRegistrationForm()
         message = None
         context = {'form': form, 'message': message}

@@ -132,8 +132,12 @@ def update_event(request, id):
 
 @login_required(login_url='login')
 def get_this_event(request, id):
-    event = events.objects.get(pk=id)
-    return render(request, 'see_particulur_event.html', {'event': event})
+    try:
+        event = events.objects.get(pk=id)
+        return render(request, 'see_particulur_event.html', {'event': event})
+    except:
+        return HttpResponse("Event Object not exist .")
+        
 
 
 @login_required(login_url='login')
