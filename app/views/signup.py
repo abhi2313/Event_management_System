@@ -19,6 +19,8 @@ class Signup(View):
         return render(request, 'signup.html', context)
 
     def post(self, request):
+        if request.user.is_authenticated:
+            return redirect('homepage')
         form = UserRegistrationForm(request.POST)
 
         if form.is_valid():

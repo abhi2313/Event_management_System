@@ -9,8 +9,11 @@ from django.contrib import messages
 
 
 class Login(View):
-    valuenext=None
+    valuenext = None
+
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('homepage')
         message = None
         form = AuthenticationForm()
         context = {
@@ -20,14 +23,16 @@ class Login(View):
         return render(request, 'login.html', context)
 
     def post(self, request):
-        valuenext= request.GET.get('next')
-       
+        if request.user.is_authenticated:
+            return redirect('homepage')
+        valuenext = request.GET.get('next')
+
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            if user is not None: 
+            if user is not None:
                 loginuser(request, user)
                 if valuenext is None:
                     return redirect('homepage')
